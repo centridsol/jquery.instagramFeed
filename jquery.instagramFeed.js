@@ -69,7 +69,7 @@
         }).fail(function (e) {
             if(tries > 1){
                 console.warn("Instagram Feed: Request failed, " + (tries-1) + " tries left. Retrying...");
-                request_data(url, tries-1, callback, autoFallback, !googlePrefix);
+                request_data(url, tries-1, callback);
             }else{
                 callback(false, e);
             }
