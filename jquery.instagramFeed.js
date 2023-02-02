@@ -215,19 +215,28 @@
          * Gallery
          */
         if(options.display_gallery){
-            var imgs = data.data,
-                max = (imgs.length > options.items) ? options.items : imgs.length;
-
+            var imgs = data.data;
+                
             if (options.filter_images){
                 imgs = options.filter_images(imgs)
             }
+
+            var max = (imgs.length > options.items) ? options.items : imgs.length;
 
             html += options.isSlider ? "<div class='instagram_gallery carousel slide' data-ride='carousel'>" : "<div class='instagram_gallery'>" ;
             
             html += options.isSlider ?  `
                     <ol class="carousel-indicators">
-                        <li data-target=".instagram_gallery" data-slide-to="0" class="active"></li>
-                        <li data-target=".instagram_gallery" data-slide-to="1"></li>
+                        ${  [...Array(max).keys()].reduce(function(pv, cv){
+                            if (cv == 0){
+                                pv = pv+ `<li data-target=".instagram_gallery" data-slide-to="0" class="active"></li>`
+                                return pv
+                            }
+                            pv = pv+ `<li data-target=".instagram_gallery" data-slide-to="${cv}"></li>`
+                            return pv
+
+                        }, "" ) }
+                       
   
                     </ol>` : '';
 
