@@ -220,7 +220,6 @@
             for (var i = 0; i < max; i++) {
                 itemData = getItemData(imgs[i])
 
-                //TODO: Test captions
                 html += '<a href="' + itemData.image + '"' + (options.display_captions && itemData.caption  ? ' data-caption="' + itemData.caption + '"' : '') + ' class="instagram-' + itemData.type + '" rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
                 html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + itemData.image + '" alt="' + itemData.caption + '"' + styles.gallery_image + ' />';
                 html += '</a>';
