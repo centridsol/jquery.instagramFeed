@@ -22,6 +22,8 @@
         'image_size': 640,
         'lazy_load': false,
         'cache_time': 360,
+        'filter_images': null,
+        'isSlider': false,
         'on_error': console.error
     };
 
@@ -216,14 +218,39 @@
             var imgs = data.data,
                 max = (imgs.length > options.items) ? options.items : imgs.length;
 
-            html += "<div class='instagram_gallery'>";
+            if (options.filter_images){
+                imgs = options.filter_images(imgs)
+            }
+
+            html += options.isSlider ? "<div class='instagram_gallery carousel slide' data-ride='carousel'>" : "<div class='instagram_gallery'>" ;
+            
+            html += options.isSlider ?  `
+                    <ol class="carousel-indicators">
+                        <li data-target=".instagram_gallery" data-slide-to="0" class="active"></li>
+                        <li data-target=".instagram_gallery" data-slide-to="1"></li>
+  
+                    </ol>` : '';
+
+            html += options.isSlider ? "<div class='carousel-inner'>" : "<div class='row'>";
+
             for (var i = 0; i < max; i++) {
                 itemData = getItemData(imgs[i])
 
-                html += '<a href="' + itemData.image + '"' + (options.display_captions && itemData.caption  ? ' data-caption="' + itemData.caption + '"' : '') + ' class="instagram-' + itemData.type + '" rel="noopener" target="_blank"' + styles.gallery_image_link + '>';
+                html += '<a href="' + itemData.image + '"' + (options.display_captions && itemData.caption ? ' data-caption="' + itemData.caption + '"' : '') + ' class="instagram-' + itemData.type + ' item '+ (i === 0 ? 'active': '') +' " rel="noopener" target="_blank"' + (options.isSlider ? "" : styles.gallery_image_link )+ '>';
                 html += '<img' + (options.lazy_load ? ' loading="lazy"' : '') + ' src="' + itemData.image + '" alt="' + itemData.caption + '"' + styles.gallery_image + ' />';
                 html += '</a>';
             }
+
+            html += "</div>";
+            html += options.isSlider ?  `
+            <a class="left carousel-control" href=".instagram_gallery" data-slide="prev">
+                <span class="fa fa-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href=".instagram_gallery" data-slide="next">
+                <span class="fa fa-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>` : '';
             html += '</div>';
         }
         

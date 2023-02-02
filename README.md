@@ -16,3 +16,8 @@ Try [InstagramFeed](https://github.com/jsanahuja/InstagramFeed), the same withou
 ## Contributing
 
 Read and follow the [CONTRIBUTING.md](./CONTRIBUTING.md) before sending any pull request.
+
+
+# Changes
+- Removed profile data
+- bootstrap required
